@@ -1,0 +1,51 @@
+﻿@model WebApplication3.Models.Product
+
+@{
+    ViewData["Title"] = "Delete Product";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-danger text-white">
+            <h3>Delete Product</h3>
+        </div>
+
+        <div class="card-body">
+
+            <h5>
+                Are you sure you want to delete:
+            </h5>
+
+            <h4 class="text-danger">
+                @Model.Name
+            </h4>
+
+            <p>
+                Price:
+                @Model.Price.ToString("N0") VNĐ
+            </p>
+
+            <form asp-action="Delete">
+
+                <input type="hidden"
+                       asp-for="Id" />
+
+                <button type="submit"
+                        class="btn btn-danger">
+                    Delete
+                </button>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

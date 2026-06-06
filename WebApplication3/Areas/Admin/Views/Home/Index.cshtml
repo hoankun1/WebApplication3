@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg border-0">
+
+        <div class="card-header bg-dark text-white">
+            <h3 class="mb-0">Admin Dashboard</h3>
+        </div>
+
+        <div class="card-body">
+
+            <h4>Xin chào Admin 👋</h4>
+
+            <p class="text-muted">
+                Đây là khu vực quản trị hệ thống bán hàng.
+            </p>
+
+            <div class="row mt-4">
+
+                <div class="col-md-4">
+                    <div class="card shadow-sm text-center">
+                        <div class="card-body">
+                            <h5>Products</h5>
+                            <p>Quản lý sản phẩm</p>
+                            <a asp-controller="Product"
+                               asp-action="Index"
+                               class="btn btn-primary">
+                                Xem
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card shadow-sm text-center">
+                        <div class="card-body">
+                            <h5>Categories</h5>
+                            <p>Quản lý danh mục</p>
+                            <a asp-controller="Category"
+                               asp-action="Index"
+                               class="btn btn-success">
+                                Xem
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card shadow-sm text-center">
+                        <div class="card-body">
+                            <h5>Users</h5>
+                            <p>Quản lý tài khoản</p>
+                            <a asp-area="Identity"
+                               asp-page="/Account/Register"
+                               class="btn btn-warning">
+                                Xem
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

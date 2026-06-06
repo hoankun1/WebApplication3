@@ -1,0 +1,74 @@
+﻿@model WebApplication3.Models.Product
+
+@{
+    ViewData["Title"] = "Product Details";
+}
+
+<div class="container mt-4">
+
+    <div class="card shadow border-0">
+
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Product Details</h3>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-8">
+
+                    <h2 class="fw-bold">
+                        @Model.Name
+                    </h2>
+
+                    <hr />
+
+                    <p>
+                        <strong>Price:</strong>
+                        @Model.Price.ToString("N0") VNĐ
+                    </p>
+
+                    <p>
+                        <strong>Category:</strong>
+                        @(Model.Category?.Name ?? "No Category")
+                    </p>
+
+                    <p>
+                        <strong>Description:</strong>
+                    </p>
+
+                    <div class="border rounded p-3 bg-light">
+                        @Model.Description
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="mt-4">
+
+                <a asp-action="Update"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-warning">
+                    Edit
+                </a>
+
+                <a asp-action="Delete"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-danger">
+                    Delete
+                </a>
+
+                <a asp-action="Index"
+                   class="btn btn-secondary">
+                    Back
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<WebApplication3.Models.Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Product Store</h2>
+
+        <a asp-action="Add"
+           class="btn btn-success">
+            + Add Product
+        </a>
+    </div>
+
+    <div class="row">
+
+        @foreach (var product in Model)
+        {
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+                    <div class="card product-card shadow-sm h-100">
+
+                        <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? "https://via.placeholder.com/250x250" : product.ImageUrl)"
+                             class="card-img-top product-image">
+
+                        <div class="card-body">
+
+                            <h6 class="product-name">
+                            @product.Name
+                            </h6>
+
+                            <h5 class="text-danger fw-bold">
+                            @product.Price.ToString("N0") VNĐ
+                            </h5>
+
+                            <p class="text-muted small">
+                            @(product.Category?.Name ?? "No Category")
+                            </p>
+
+                        </div>
+
+                        <div class="card-footer bg-white border-0">
+
+                            <div class="d-grid gap-2">
+
+                                <a asp-action="Display"
+                                   asp-route-id="@product.Id"
+                                   class="btn btn-primary btn-sm">
+                                    View
+                                </a>
+
+                                <a asp-action="Update"
+                                   asp-route-id="@product.Id"
+                                   class="btn btn-warning btn-sm">
+                                    Edit
+                                </a>
+
+                                <a asp-action="Delete"
+                                   asp-route-id="@product.Id"
+                                   class="btn btn-danger btn-sm">
+                                    Delete
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+        }
+
+    </div>
+
+</div>
