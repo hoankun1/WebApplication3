@@ -1,76 +1,114 @@
 ﻿@model IEnumerable<WebApplication3.Models.Product>
 
 @{
-    ViewData["Title"] = "Product Management";
+    ViewData["Title"] = "Quản lý sản phẩm";
 }
 
-<div class="container mt-4">
+<div class="container-fluid mt-4">
 
-    <div class="card shadow border-0">
+    <div class="row mb-4">
 
-        <div class="card-header bg-primary text-white d-flex justify-content-between">
+        <div class="col-md-6">
+            <h2 class="fw-bold">Quản lý sản phẩm</h2>
+            <p class="text-muted">Khu vực quản trị dành cho Admin</p>
+        </div>
 
-            <h3 class="mb-0">Product Management</h3>
+        <div class="col-md-6 text-end">
+            <a asp-area="Admin"
+               asp-controller="Home"
+               asp-action="Index"
+               class="btn btn-secondary">
+                Dashboard
+            </a>
 
             <a asp-area="Admin"
                asp-controller="Product"
                asp-action="Add"
-               class="btn btn-light">
-                + Add Product
+               class="btn btn-success">
+                + Thêm sản phẩm
             </a>
-
         </div>
+
+    </div>
+
+    <div class="card shadow border-0">
 
         <div class="card-body">
 
-            <table class="table table-striped table-hover">
+            <table class="table table-hover align-middle">
 
                 <thead class="table-dark">
 
                     <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th width="220">Action</th>
+                        <th width="80">ID</th>
+                        <th>Tên sản phẩm</th>
+                        <th width="180">Giá</th>
+                        <th width="180">Danh mục</th>
+                        <th width="220">Thao tác</th>
                     </tr>
 
                 </thead>
 
                 <tbody>
 
-                    @foreach (var item in Model)
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@item.Id</td>
+
+                                <td>
+                                    <strong>@item.Name</strong>
+                                </td>
+
+                                <td>
+                                    @item.Price.ToString("N0") VNĐ
+                                </td>
+
+                                <td>
+                                    @(item.Category?.Name ?? "Chưa phân loại")
+                                </td>
+
+                                <td>
+
+                                    <a asp-area="Admin"
+                                       asp-controller="Product"
+                                       asp-action="Update"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-warning btn-sm">
+                                        Sửa
+                                    </a>
+
+                                    <a asp-area="Admin"
+                                       asp-controller="Product"
+                                       asp-action="Delete"
+                                       asp-route-id="@item.Id"
+                                       class="btn btn-danger btn-sm">
+                                        Xóa
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
                     {
                         <tr>
 
-                            <td>@item.Id</td>
+                            <td colspan="5" class="text-center py-4">
 
-                            <td>@item.Name</td>
-
-                            <td>
-                                @item.Price.ToString("N0") VNĐ
-                            </td>
-
-                            <td>
-                                @item.Category?.Name
-                            </td>
-
-                            <td>
+                                <h5>Chưa có sản phẩm nào</h5>
 
                                 <a asp-area="Admin"
                                    asp-controller="Product"
-                                   asp-action="Update"
-                                   asp-route-id="@item.Id"
-                                   class="btn btn-warning btn-sm">
-                                    Edit
-                                </a>
+                                   asp-action="Add"
+                                   class="btn btn-success mt-2">
 
-                                <a asp-area="Admin"
-                                   asp-controller="Product"
-                                   asp-action="Delete"
-                                   asp-route-id="@item.Id"
-                                   class="btn btn-danger btn-sm">
-                                    Delete
+                                    Thêm sản phẩm đầu tiên
+
                                 </a>
 
                             </td>

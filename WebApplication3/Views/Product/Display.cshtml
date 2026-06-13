@@ -1,69 +1,90 @@
 ﻿@model WebApplication3.Models.Product
 
 @{
-    ViewData["Title"] = "Product Details";
+    ViewData["Title"] = "Chi tiết sản phẩm";
 }
 
 <div class="container mt-4">
 
-    <div class="card shadow border-0">
+    <div class="row">
 
-        <div class="card-header bg-primary text-white">
-            <h3 class="mb-0">Product Details</h3>
-        </div>
+        <div class="col-lg-5">
 
-        <div class="card-body">
+            <div class="card shadow border-0">
 
-            <div class="row">
-
-                <div class="col-md-8">
-
-                    <h2 class="fw-bold">
-                        @Model.Name
-                    </h2>
-
-                    <hr />
-
-                    <p>
-                        <strong>Price:</strong>
-                        @Model.Price.ToString("N0") VNĐ
-                    </p>
-
-                    <p>
-                        <strong>Category:</strong>
-                        @(Model.Category?.Name ?? "No Category")
-                    </p>
-
-                    <p>
-                        <strong>Description:</strong>
-                    </p>
-
-                    <div class="border rounded p-3 bg-light">
-                        @Model.Description
-                    </div>
-
-                </div>
+                <img src="@(string.IsNullOrEmpty(Model.ImageUrl)
+                            ? "https://via.placeholder.com/600x400"
+                            : Model.ImageUrl)"
+                     class="img-fluid rounded"
+                     style="height:450px;object-fit:cover;">
 
             </div>
 
-            <div class="mt-4">
+        </div>
 
-                <a asp-action="Update"
-                   asp-route-id="@Model.Id"
-                   class="btn btn-warning">
-                    Edit
-                </a>
+        <div class="col-lg-7">
 
-                <a asp-action="Delete"
-                   asp-route-id="@Model.Id"
-                   class="btn btn-danger">
-                    Delete
-                </a>
+            <div class="card shadow border-0 h-100">
 
-                <a asp-action="Index"
-                   class="btn btn-secondary">
-                    Back
-                </a>
+                <div class="card-body">
+
+                    <span class="badge bg-primary mb-3">
+                        @(Model.Category?.Name ?? "Chưa phân loại")
+                    </span>
+
+                    <h2 class="fw-bold mb-3">
+                        @Model.Name
+                    </h2>
+
+                    <h3 class="text-danger fw-bold mb-4">
+                        @Model.Price.ToString("N0") VNĐ
+                    </h3>
+
+                    <h5>Mô tả sản phẩm</h5>
+
+                    <div class="border rounded p-3 bg-light mb-4">
+
+                        @if (!string.IsNullOrWhiteSpace(Model.Description))
+                        {
+                            @Model.Description
+                        }
+                        else
+                        {
+                            <span class="text-muted">
+                                Chưa có mô tả.
+                            </span>
+                        }
+
+                    </div>
+
+                    <div class="d-flex gap-2 flex-wrap">
+
+                        @if (User.Identity!.IsAuthenticated)
+                        {
+                            <a asp-action="Update"
+                               asp-route-id="@Model.Id"
+                               class="btn btn-warning">
+                                Chỉnh sửa
+                            </a>
+                        }
+
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a asp-action="Delete"
+                               asp-route-id="@Model.Id"
+                               class="btn btn-danger">
+                                Xóa
+                            </a>
+                        }
+
+                        <a asp-action="Index"
+                           class="btn btn-secondary">
+                            Quay lại
+                        </a>
+
+                    </div>
+
+                </div>
 
             </div>
 

@@ -1,0 +1,142 @@
+﻿@model IEnumerable<WebApplication3.Models.Order>
+
+@{
+    ViewData["Title"] = "Order History";
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+        🧾 Lịch sử mua hàng
+    </h2>
+
+    @if (Model.Any())
+    {
+        <div class="card shadow border-0">
+
+            <div class="card-body">
+
+                <table class="table table-hover table-bordered">
+
+                    <thead class="table-dark">
+
+                        <tr>
+                            <th>Mã đơn</th>
+                            <th>Ngày đặt</th>
+                            <th>Người nhận</th>
+                            <th>Số điện thoại</th>
+                            <th>Tổng tiền</th>
+                            <th>Trạng thái</th>
+                            <th width="220">Hành động</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var order in Model)
+                        {
+                            <tr>
+
+                                <td>#@order.Id</td>
+
+                                <td>
+                                    @order.OrderDate.ToString("dd/MM/yyyy HH:mm")
+                                </td>
+
+                                <td>
+                                    @order.FullName
+                                </td>
+
+                                <td>
+                                    @order.PhoneNumber
+                                </td>
+
+                                <td class="text-danger fw-bold">
+                                    @order.TotalAmount.ToString("N0") VNĐ
+                                </td>
+
+                                <td>
+
+                                    @if (order.Status == "Confirmed")
+                                    {
+                                        <span class="badge bg-primary">
+                                            Đã xác nhận
+                                        </span>
+                                    }
+                                    else if (order.Status == "Shipped")
+                                    {
+                                        <span class="badge bg-info">
+                                            Đã gửi hàng
+                                        </span>
+                                    }
+                                    else if (order.Status == "Shipping")
+                                    {
+                                        <span class="badge bg-warning">
+                                            Đang vận chuyển
+                                        </span>
+                                    }
+                                    else if (order.Status == "Delivered")
+                                    {
+                                        <span class="badge bg-success">
+                                            Đã giao
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">
+                                            @order.Status
+                                        </span>
+                                    }
+
+                                </td>
+
+                                <td>
+
+                                    <a asp-action="Detail"
+                                       asp-route-id="@order.Id"
+                                       class="btn btn-primary btn-sm">
+
+                                        Chi tiết
+
+                                    </a>
+
+                                    <a asp-action="ReOrder"
+                                       asp-route-id="@order.Id"
+                                       class="btn btn-success btn-sm">
+
+                                        Đặt lại
+
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+
+            Bạn chưa có đơn hàng nào.
+
+        </div>
+
+        <a asp-controller="Product"
+           asp-action="Index"
+           class="btn btn-primary">
+
+            Tiếp tục mua sắm
+
+        </a>
+    }
+
+</div>

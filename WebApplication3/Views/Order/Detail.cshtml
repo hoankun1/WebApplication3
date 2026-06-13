@@ -1,0 +1,169 @@
+﻿@model WebApplication3.Models.Order
+
+@{
+    ViewData["Title"] = "Order Detail";
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+        📦 Chi tiết đơn hàng #@Model.Id
+    </h2>
+
+    <!-- THÔNG TIN ĐƠN HÀNG -->
+    <div class="card shadow border-0 mb-4">
+
+        <div class="card-header bg-primary text-white">
+            Thông tin đơn hàng
+        </div>
+
+        <div class="card-body">
+
+            <p><b>Họ tên:</b> @Model.FullName</p>
+            <p><b>Số điện thoại:</b> @Model.PhoneNumber</p>
+            <p><b>Địa chỉ:</b> @Model.Address</p>
+            <p><b>Ngày đặt:</b> @Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
+
+            <p>
+                <b>Trạng thái:</b>
+
+                @if (Model.Status == "Confirmed")
+                {
+                    <span class="badge bg-primary">Đã xác nhận</span>
+                }
+                else if (Model.Status == "Shipped")
+                {
+                    <span class="badge bg-info">Đã gửi hàng</span>
+                }
+                else if (Model.Status == "Shipping")
+                {
+                    <span class="badge bg-warning">Đang vận chuyển</span>
+                }
+                else if (Model.Status == "Delivered")
+                {
+                    <span class="badge bg-success">Đã giao</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">@Model.Status</span>
+                }
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="card shadow border-0 mb-4">
+
+        <div class="card-header bg-dark text-white">
+            Trạng thái đơn hàng (Timeline)
+        </div>
+
+        <div class="card-body">
+
+            <ul class="list-group">
+
+                <li class="list-group-item @(Model.Status != "Confirmed" ? "list-group-item-success" : "active")">
+                    ✔ Đã xác nhận
+                </li>
+
+                <li class="list-group-item @(Model.Status == "Shipped" || Model.Status == "Shipping" || Model.Status == "Delivered" ? "list-group-item-success" : "")">
+                    🚚 Đã gửi hàng
+                </li>
+
+                <li class="list-group-item @(Model.Status == "Shipping" || Model.Status == "Delivered" ? "list-group-item-success" : "")">
+                    🚛 Đang vận chuyển
+                </li>
+
+                <li class="list-group-item @(Model.Status == "Delivered" ? "list-group-item-success" : "")">
+                    📦 Đã giao
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <!-- SẢN PHẨM -->
+    <div class="card shadow border-0 mb-4">
+
+        <div class="card-header bg-success text-white">
+            Sản phẩm trong đơn hàng
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-bordered">
+
+                <thead class="table-dark">
+
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th>Thành tiền</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    @foreach (var item in Model.OrderDetails)
+                    {
+                        <tr>
+
+                            <td>@item.Product?.Name</td>
+
+                            <td>@item.Quantity</td>
+
+                            <td>@item.Price.ToString("N0") VNĐ</td>
+
+                            <td class="text-danger fw-bold">
+                                @((item.Price * item.Quantity).ToString("N0")) VNĐ
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- TỔNG TIỀN + ACTION -->
+    <div class="card shadow border-0">
+
+        <div class="card-body text-end">
+
+            <h4>
+                Tổng tiền:
+                <span class="text-danger fw-bold">
+                    @Model.TotalAmount.ToString("N0") VNĐ
+                </span>
+            </h4>
+
+            <a asp-action="ReOrder"
+               asp-route-id="@Model.Id"
+               class="btn btn-success mt-3">
+
+                🔁 Đặt lại
+
+            </a>
+
+            <a asp-action="History"
+               class="btn btn-secondary mt-3">
+
+                Quay lại
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

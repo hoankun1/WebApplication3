@@ -1,44 +1,107 @@
 ﻿@model IEnumerable<WebApplication3.Models.Product>
 
 @{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = "Product Store";
 }
 
 <div class="container mt-4">
 
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">Product Store</h2>
+    ```
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
 
-        <a asp-action="Add"
-           class="btn btn-success">
-            + Add Product
-        </a>
+    <div class="row mb-4">
+
+        <div class="col-md-6">
+            <h2 class="fw-bold">🛒 Product Store</h2>
+            <p class="text-muted">Danh sách sản phẩm hiện có</p>
+        </div>
+
+        <div class="col-md-6 text-end">
+
+            @if (User.Identity!.IsAuthenticated)
+            {
+                <a asp-controller="Cart"
+                   asp-action="Index"
+                   class="btn btn-primary me-2">
+
+                    🛒 Giỏ hàng
+
+                </a>
+
+                <a asp-action="Add"
+                   class="btn btn-success">
+
+                    + Thêm sản phẩm
+
+                </a>
+            }
+
+        </div>
+
+    </div>
+
+    <div class="card shadow-sm border-0 mb-4">
+
+        <div class="card-body">
+
+            <h5 class="mb-3">Danh mục sản phẩm</h5>
+
+            <a asp-action="Index"
+               class="btn @(ViewBag.SelectedCategory == null ? "btn-primary" : "btn-outline-primary") me-2 mb-2">
+
+                Tất cả
+
+            </a>
+
+            @foreach (var category in ViewBag.Categories)
+            {
+                <a asp-action="Index"
+                   asp-route-categoryId="@category.Id"
+                   class="btn @(ViewBag.SelectedCategory == category.Id ? "btn-primary" : "btn-outline-secondary") me-2 mb-2">
+
+                    @category.Name
+
+                </a>
+            }
+
+        </div>
+
     </div>
 
     <div class="row">
 
-        @foreach (var product in Model)
+        @if (Model != null && Model.Any())
         {
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            @foreach (var product in Model)
+            {
+                <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
 
-                    <div class="card product-card shadow-sm h-100">
+                    <div class="card shadow border-0 h-100">
 
-                        <img src="@(string.IsNullOrEmpty(product.ImageUrl) ? "https://via.placeholder.com/250x250" : product.ImageUrl)"
-                             class="card-img-top product-image">
+                        <img src="@(string.IsNullOrEmpty(product.ImageUrl)
+                                 ? "https://via.placeholder.com/400x300"
+                                 : product.ImageUrl)"
+                             class="card-img-top"
+                             style="height:220px;object-fit:cover;" />
 
                         <div class="card-body">
 
-                            <h6 class="product-name">
-                            @product.Name
-                            </h6>
-
-                            <h5 class="text-danger fw-bold">
-                            @product.Price.ToString("N0") VNĐ
+                            <h5 class="fw-bold">
+                                @product.Name
                             </h5>
 
-                            <p class="text-muted small">
-                            @(product.Category?.Name ?? "No Category")
+                            <p class="text-muted mb-2">
+                                @(product.Category?.Name ?? "Chưa phân loại")
                             </p>
+
+                            <h4 class="text-danger fw-bold">
+                                @product.Price.ToString("N0") VNĐ
+                            </h4>
 
                         </div>
 
@@ -48,21 +111,41 @@
 
                                 <a asp-action="Display"
                                    asp-route-id="@product.Id"
-                                   class="btn btn-primary btn-sm">
-                                    View
+                                   class="btn btn-primary">
+
+                                    Xem chi tiết
+
                                 </a>
 
-                                <a asp-action="Update"
-                                   asp-route-id="@product.Id"
-                                   class="btn btn-warning btn-sm">
-                                    Edit
-                                </a>
+                                @if (User.Identity!.IsAuthenticated)
+                                {
+                                    <a asp-action="AddToCart"
+                                       asp-route-id="@product.Id"
+                                       class="btn btn-success">
 
-                                <a asp-action="Delete"
-                                   asp-route-id="@product.Id"
-                                   class="btn btn-danger btn-sm">
-                                    Delete
-                                </a>
+                                        Thêm vào giỏ hàng
+
+                                    </a>
+
+                                    <a asp-action="Update"
+                                       asp-route-id="@product.Id"
+                                       class="btn btn-warning">
+
+                                        Chỉnh sửa
+
+                                    </a>
+                                }
+
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Delete"
+                                       asp-route-id="@product.Id"
+                                       class="btn btn-danger">
+
+                                        Xóa
+
+                                    </a>
+                                }
 
                             </div>
 
@@ -71,8 +154,29 @@
                     </div>
 
                 </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+
+                <div class="alert alert-info text-center">
+
+                    <h4>Không có sản phẩm trong danh mục này</h4>
+
+                    <a asp-action="Index"
+                       class="btn btn-primary mt-2">
+
+                        Xem tất cả sản phẩm
+
+                    </a>
+
+                </div>
+
+            </div>
         }
 
     </div>
+    ```
 
 </div>

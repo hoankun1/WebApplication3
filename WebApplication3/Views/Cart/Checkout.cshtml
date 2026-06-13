@@ -1,0 +1,178 @@
+﻿@{
+    ViewData["Title"] = "Checkout";
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-4">
+        Thanh toán đơn hàng
+    </h2>
+
+    <form asp-controller="Cart"
+          asp-action="PlaceOrder"
+          method="post">
+
+        <div class="row">
+
+            <div class="col-md-7">
+
+                <div class="card shadow border-0 mb-4">
+
+                    <div class="card-header bg-primary text-white">
+                        Thông tin vận chuyển
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="mb-3">
+                            <label class="form-label">Họ tên</label>
+                            <input name="FullName"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Số điện thoại</label>
+                            <input name="PhoneNumber"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Tỉnh / Thành phố</label>
+                            <select name="Province"
+                                    class="form-select"
+                                    required>
+                                <option value="">-- Chọn tỉnh/thành --</option>
+                                <option>TP. Hồ Chí Minh</option>
+                                <option>Hà Nội</option>
+                                <option>Đà Nẵng</option>
+                                <option>Cần Thơ</option>
+                                <option>Bình Dương</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Quận / Huyện</label>
+                            <select name="District"
+                                    class="form-select"
+                                    required>
+                                <option value="">-- Chọn quận/huyện --</option>
+                                <option>Quận 1</option>
+                                <option>Quận 3</option>
+                                <option>Quận 7</option>
+                                <option>Thủ Đức</option>
+                                <option>Huyện Bình Chánh</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Phường / Xã</label>
+                            <select name="Ward"
+                                    class="form-select"
+                                    required>
+                                <option value="">-- Chọn phường/xã --</option>
+                                <option>Phường Bến Nghé</option>
+                                <option>Phường Tân Định</option>
+                                <option>Phường Linh Trung</option>
+                                <option>Phường Tân Phong</option>
+                                <option>Xã Bình Hưng</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Địa chỉ cụ thể</label>
+                            <textarea name="AddressDetail"
+                                      class="form-control"
+                                      rows="3"
+                                      required></textarea>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-5">
+
+                <div class="card shadow border-0 mb-4">
+
+                    <div class="card-header bg-success text-white">
+                        Phương thức thanh toán
+                    </div>
+
+                    <div class="card-body">
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   name="PaymentMethod"
+                                   value="COD"
+                                   checked />
+
+                            <label class="form-check-label">
+                                Thanh toán khi nhận hàng COD
+                            </label>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   name="PaymentMethod"
+                                   value="Bank" />
+
+                            <label class="form-check-label">
+                                Chuyển khoản ngân hàng
+                            </label>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   name="PaymentMethod"
+                                   value="EWallet" />
+
+                            <label class="form-check-label">
+                                Ví điện tử
+                            </label>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="card shadow border-0">
+
+                    <div class="card-header bg-dark text-white">
+                        Xác nhận đơn hàng
+                    </div>
+
+                    <div class="card-body">
+
+                        <p class="text-muted">
+                            Vui lòng kiểm tra thông tin trước khi đặt hàng.
+                        </p>
+
+                        <button type="submit"
+                                class="btn btn-success w-100">
+                            Đặt hàng
+                        </button>
+
+                        <a asp-controller="Cart"
+                           asp-action="Index"
+                           class="btn btn-secondary w-100 mt-2">
+                            Quay lại giỏ hàng
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

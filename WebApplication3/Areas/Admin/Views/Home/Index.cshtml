@@ -4,62 +4,138 @@
 
 <div class="container mt-4">
 
-    <div class="card shadow-lg border-0">
+    ```
+    <div class="row mb-4">
 
-        <div class="card-header bg-dark text-white">
-            <h3 class="mb-0">Admin Dashboard</h3>
+        <div class="col-12">
+
+            <div class="bg-dark text-white p-4 rounded shadow">
+
+                <h2 class="mb-2">
+                    Admin Dashboard
+                </h2>
+
+                <p class="mb-0">
+                    Hệ thống quản trị Product Store
+                </p>
+
+            </div>
+
         </div>
 
-        <div class="card-body">
+    </div>
 
-            <h4>Xin chào Admin 👋</h4>
+    <div class="row g-4">
 
-            <p class="text-muted">
-                Đây là khu vực quản trị hệ thống bán hàng.
-            </p>
+        <div class="col-lg-3 col-md-6">
 
-            <div class="row mt-4">
+            <div class="card border-0 shadow h-100">
 
-                <div class="col-md-4">
-                    <div class="card shadow-sm text-center">
-                        <div class="card-body">
-                            <h5>Products</h5>
-                            <p>Quản lý sản phẩm</p>
-                            <a asp-controller="Product"
-                               asp-action="Index"
-                               class="btn btn-primary">
-                                Xem
-                            </a>
-                        </div>
-                    </div>
+                <div class="card-body text-center">
+
+                    <h1>📦</h1>
+
+                    <h5>Sản phẩm</h5>
+
+                    <p class="text-muted">
+                        Quản lý sản phẩm
+                    </p>
+
+                    <a asp-area="Admin"
+                       asp-controller="Product"
+                       asp-action="Index"
+                       class="btn btn-primary">
+
+                        Quản lý
+
+                    </a>
+
                 </div>
 
-                <div class="col-md-4">
-                    <div class="card shadow-sm text-center">
-                        <div class="card-body">
-                            <h5>Categories</h5>
-                            <p>Quản lý danh mục</p>
-                            <a asp-controller="Category"
-                               asp-action="Index"
-                               class="btn btn-success">
-                                Xem
-                            </a>
-                        </div>
-                    </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h1>📂</h1>
+
+                    <h5>Danh mục</h5>
+
+                    <p class="text-muted">
+                        Quản lý danh mục
+                    </p>
+
+                    <a asp-area="Admin"
+                       asp-controller="Category"
+                       asp-action="Index"
+                       class="btn btn-success">
+
+                        Quản lý
+
+                    </a>
+
                 </div>
 
-                <div class="col-md-4">
-                    <div class="card shadow-sm text-center">
-                        <div class="card-body">
-                            <h5>Users</h5>
-                            <p>Quản lý tài khoản</p>
-                            <a asp-area="Identity"
-                               asp-page="/Account/Register"
-                               class="btn btn-warning">
-                                Xem
-                            </a>
-                        </div>
-                    </div>
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h1>👤</h1>
+
+                    <h5>Tài khoản</h5>
+
+                    <p class="text-muted">
+                        Quản lý người dùng
+                    </p>
+
+                    <a asp-area="Admin"
+                       asp-controller="User"
+                       asp-action="Index"
+                       class="btn btn-warning">
+
+                        Quản lý
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="card border-0 shadow h-100">
+
+                <div class="card-body text-center">
+
+                    <h1>⚙️</h1>
+
+                    <h5>Hệ thống</h5>
+
+                    <p class="text-muted">
+                        Thiết lập hệ thống
+                    </p>
+
+                    <a asp-area="Identity"
+                       asp-page="/Account/Manage/Index"
+                       class="btn btn-secondary">
+
+                        Xem
+
+                    </a>
+
                 </div>
 
             </div>
@@ -67,5 +143,52 @@
         </div>
 
     </div>
+
+    <div class="card border-0 shadow mt-4">
+
+        <div class="card-header bg-primary text-white">
+
+            <h5 class="mb-0">
+                Chức năng quản trị
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+
+                    <a asp-area="Admin"
+                       asp-controller="Product"
+                       asp-action="Add"
+                       class="btn btn-outline-primary w-100">
+
+                        Thêm sản phẩm mới
+
+                    </a>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <a asp-area="Admin"
+                       asp-controller="Category"
+                       asp-action="Add"
+                       class="btn btn-outline-success w-100">
+
+                        Thêm danh mục mới
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    ```
 
 </div>
